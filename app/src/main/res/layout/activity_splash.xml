@@ -17,6 +17,6 @@
         android:background="@null"
         android:textSize="18sp"
         android:textColor="@android:color/white"
-        android:text="3秒,跳过"/>
+        android:text="跳过"/>
 
 </LinearLayout>

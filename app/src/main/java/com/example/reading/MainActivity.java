@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
     }
 
     public  static  void start(Activity activity)
