@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/book"
+        />
+
+    <TextView
+        android:id="@+id/tv_bookname"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="书名书名"
+        android:textSize="18sp"
+       android:layout_gravity="center"
+        android:gravity="center"
+        />
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点击下载"
+        />
+
+
+</LinearLayout>
