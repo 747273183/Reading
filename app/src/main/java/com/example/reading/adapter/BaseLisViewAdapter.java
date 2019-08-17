@@ -1,7 +1,6 @@
-package com.example.reading;
+package com.example.reading.adapter;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.reading.R;
+import com.example.reading.ReadingActivity;
+import com.example.reading.entity.BookListResult;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
@@ -116,8 +118,7 @@ public class BaseLisViewAdapter extends BaseAdapter {
                 }
                 else if ("开始阅读".equals(btnText))
                 {
-                        //todo 开始阅读
-                    Toast.makeText(context, "开始阅读", Toast.LENGTH_SHORT).show();
+                    ReadingActivity.start(context,filePath);
                 }
 
             }

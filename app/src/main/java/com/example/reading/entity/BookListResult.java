@@ -1,4 +1,4 @@
-package com.example.reading;
+package com.example.reading.entity;
 
 import java.io.Serializable;
 import java.util.List;
