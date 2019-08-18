@@ -24,7 +24,7 @@
         <LinearLayout
             android:id="@+id/setting_view"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="60dp"
             android:background="@android:color/darker_gray"
@@ -32,10 +32,12 @@
             android:gravity="center"
             android:visibility="gone">
 
+
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="40dp"></android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </com.example.reading.view.BookPageView>

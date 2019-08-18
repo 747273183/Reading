@@ -1,9 +1,13 @@
 package com.example.reading.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +16,13 @@ import android.widget.Toast;
 
 import com.example.reading.R;
 import com.example.reading.ReadingActivity;
-import com.example.reading.view.BookPageBezierHelper;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cz.msebera.android.httpclient.client.utils.URIUtils;
 
 public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecyclerAdapter.MyViewHolder> {
 
@@ -25,6 +30,9 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
     private List<String> stringList;
     private LayoutInflater inflater;
     private int progress;
+    private TextToSpeech tts;
+
+    private static final String TAG = "SettingRecyclerAdapter";
 
     public SettingRecyclerAdapter(Context context, List<String> stringList) {
 
@@ -51,7 +59,7 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
         myViewHolder.tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReadingActivity readingActivity=   (ReadingActivity)context;
+                final ReadingActivity readingActivity=   (ReadingActivity)context;
                 SharedPreferences sharedPreferences=context.getSharedPreferences("bookmarks",Context.MODE_PRIVATE);
                 switch (i)
                 {
@@ -74,9 +82,50 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
                         Toast.makeText(context, "设置背景成功", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(context, "语音朗读", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "开始语音朗读", Toast.LENGTH_SHORT).show();
+                        if (tts==null)
+                        {
+                            tts = new TextToSpeech(context, new TextToSpeech.OnInitListener() {
+                                @Override
+                                public void onInit(int status) {
+                                    if (status==TextToSpeech.SUCCESS)
+                                    {
+                                        int result = tts.setLanguage(Locale.CHINA);
+                                        if (result==TextToSpeech.LANG_MISSING_DATA || result==TextToSpeech.LANG_NOT_SUPPORTED)
+                                        {
+                                            Log.d(TAG, "onInit: language is not available.");
+                                            Uri uri=Uri.parse("http://acj2.pc6.com/pc6_soure/2017-6/com.iflytek.vflynote_208.apk");
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                            context.startActivity(intent);
+                                        }
+                                        else
+                                        {
+                                            Log.d(TAG, "onInit: init success");
+                                            tts.speak(readingActivity.bookPageBezierHelper.getCurrentPageContent(), TextToSpeech.QUEUE_FLUSH, null);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Log.d(TAG, "onInit: init error");
+                                    }
+                                }
+                            });
+                        }
+                        else
+                        {
+                            if (tts.isSpeaking())
+                            {
+                                tts.stop();
+                            }
+                            else
+                            {
+                                tts.speak(readingActivity.bookPageBezierHelper.getCurrentPageContent(), TextToSpeech.QUEUE_FLUSH, null);
+                            }
+                        }
+
                         break;
                     case 4:
+
                         Toast.makeText(context, "跳转进度", Toast.LENGTH_SHORT).show();
                         break;
                 }

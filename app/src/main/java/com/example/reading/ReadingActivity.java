@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.reading.adapter.SettingRecyclerAdapter;
@@ -37,11 +38,12 @@ public class ReadingActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private List<String> strings=new ArrayList<>();
+
+    private List<String> strings = new ArrayList<>();
     private SettingRecyclerAdapter settingRecyclerAdapter;
     public int currentLength;
     public String filePath;
-    private BookPageBezierHelper bookPageBezierHelper;
+    public BookPageBezierHelper bookPageBezierHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +58,17 @@ public class ReadingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //打开书
-        openBook(0,R.drawable.book_bg);
+        openBook(0, R.drawable.book_bg);
         //添加设置菜单
         addSettingMenu();
+
 
 
     }
 
     private void addSettingMenu() {
         //设置recyclerView的适配器
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -75,7 +78,7 @@ public class ReadingActivity extends AppCompatActivity {
         strings.add("语音朗读");
         strings.add("跳转进度");
 
-        settingRecyclerAdapter=new SettingRecyclerAdapter(this,strings);
+        settingRecyclerAdapter = new SettingRecyclerAdapter(this, strings);
 
         recyclerView.setAdapter(settingRecyclerAdapter);
 
@@ -90,8 +93,7 @@ public class ReadingActivity extends AppCompatActivity {
     }
 
 
-
-    public void openBook(int progress,int bgResID) {
+    public void openBook(int progress, int bgResID) {
         //设置翻页的宽高
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -99,7 +101,7 @@ public class ReadingActivity extends AppCompatActivity {
         int height = displayMetrics.heightPixels;
 
         //设置翻页
-        bookPageBezierHelper = new BookPageBezierHelper(width, height,progress);
+        bookPageBezierHelper = new BookPageBezierHelper(width, height, progress);
         bookPageView.setBookPageBezierHelper(bookPageBezierHelper);
 
         //设置当前页 下一页
@@ -108,12 +110,12 @@ public class ReadingActivity extends AppCompatActivity {
         bookPageView.setBitmaps(currentPageBitMap, nextPageBitMap);
 
         //设置背景图片
-        bookPageBezierHelper.setBackground(this,bgResID);
+        bookPageBezierHelper.setBackground(this, bgResID);
         //设置进度
         bookPageBezierHelper.setOnProgressChangedListener(new BookPageBezierHelper.OnProgressChangedListener() {
             @Override
             public void setProgress(int currentLength, int totalLength) {
-                ReadingActivity.this.currentLength=currentLength;
+                ReadingActivity.this.currentLength = currentLength;
                 String format = String.format("%.4f", currentLength * 100.0000 / totalLength);
                 tvProgress.setText(format + "%");
             }
@@ -129,7 +131,6 @@ public class ReadingActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 
 
     public static void start(Context activity, String filePath) {
