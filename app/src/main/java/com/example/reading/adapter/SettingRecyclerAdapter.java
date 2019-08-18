@@ -24,6 +24,7 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
     private Context context;
     private List<String> stringList;
     private LayoutInflater inflater;
+    private int progress;
 
     public SettingRecyclerAdapter(Context context, List<String> stringList) {
 
@@ -63,13 +64,14 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
                         break;
                     case 1:
 
-                        int progress = sharedPreferences.getInt(readingActivity.filePath, 0);
-                        Toast.makeText(context, "读取书签"+progress, Toast.LENGTH_SHORT).show();
-                        readingActivity.openBook(progress);
+                        progress = sharedPreferences.getInt(readingActivity.filePath, 0);
+                        Toast.makeText(context, "读取书签"+ progress, Toast.LENGTH_SHORT).show();
+                        readingActivity.openBook(progress,R.drawable.book_bg);
 
                         break;
                     case 2:
-                        Toast.makeText(context, "设置背景", Toast.LENGTH_SHORT).show();
+                        readingActivity.openBook(progress,R.drawable.book_bg2);
+                        Toast.makeText(context, "设置背景成功", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
                         Toast.makeText(context, "语音朗读", Toast.LENGTH_SHORT).show();

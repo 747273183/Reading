@@ -56,7 +56,7 @@ public class ReadingActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         //打开书
-        openBook(0);
+        openBook(0,R.drawable.book_bg);
         //添加设置菜单
         addSettingMenu();
 
@@ -89,7 +89,9 @@ public class ReadingActivity extends AppCompatActivity {
         });
     }
 
-    public void openBook(int progress) {
+
+
+    public void openBook(int progress,int bgResID) {
         //设置翻页的宽高
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -106,7 +108,7 @@ public class ReadingActivity extends AppCompatActivity {
         bookPageView.setBitmaps(currentPageBitMap, nextPageBitMap);
 
         //设置背景图片
-        bookPageBezierHelper.setBackground(this, R.drawable.book_bg);
+        bookPageBezierHelper.setBackground(this,bgResID);
         //设置进度
         bookPageBezierHelper.setOnProgressChangedListener(new BookPageBezierHelper.OnProgressChangedListener() {
             @Override
