@@ -38,6 +38,15 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"></android.support.v7.widget.RecyclerView>
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:max="100"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_gravity="center_horizontal"
+                />
 
         </LinearLayout>
     </com.example.reading.view.BookPageView>

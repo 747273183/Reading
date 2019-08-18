@@ -125,7 +125,7 @@ public class SettingRecyclerAdapter extends RecyclerView.Adapter<SettingRecycler
 
                         break;
                     case 4:
-
+                        readingActivity.seekBar.setVisibility(View.VISIBLE);
                         Toast.makeText(context, "跳转进度", Toast.LENGTH_SHORT).show();
                         break;
                 }

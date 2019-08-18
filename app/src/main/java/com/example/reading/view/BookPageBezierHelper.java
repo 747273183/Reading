@@ -29,7 +29,7 @@ public class BookPageBezierHelper {
     private int mWidth;
     private int mHeight;
     private File mBookFile;
-    private int mBookBufferLength;
+    public int mBookBufferLength;
     private MappedByteBuffer mBookBuffer;
     private String mBookCharsetName = GBK;
     private int mPageLineCount; // 每页可以显示的行数

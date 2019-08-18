@@ -37,6 +37,8 @@ public class ReadingActivity extends AppCompatActivity {
     LinearLayout settingView;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.seekBar)
+    public  SeekBar seekBar;
 
 
     private List<String> strings = new ArrayList<>();
@@ -62,6 +64,26 @@ public class ReadingActivity extends AppCompatActivity {
         //添加设置菜单
         addSettingMenu();
 
+        //进度条值被改变监听
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            //开始改变时(实时改变,影响性能)
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                openBook(seekBar.getProgress()*bookPageBezierHelper.mBookBufferLength/100,R.drawable.book_bg);
+            }
+
+            //开始拖动时
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            //结束拖动时
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                openBook(seekBar.getProgress()*bookPageBezierHelper.mBookBufferLength/100,R.drawable.book_bg);
+            }
+        });
 
 
     }
